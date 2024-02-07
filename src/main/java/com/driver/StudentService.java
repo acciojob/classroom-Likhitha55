@@ -33,10 +33,13 @@ public class StudentService {
     public List<String> getAllStudents(){
         return studentRepository.getAllStudents();
     }
-    public void deleteTeacherByName(String teacher){
-        studentRepository.deleteTeacherByName(teacher);
+    public String deleteTeacherByName(String teacher){
+        return studentRepository.deleteTeacherByName(teacher);
     }
     public void deleteAllTeachers(){
         studentRepository.deleteAllTeachers();
+    }
+    public List<String> getAllTeachers(){
+        return studentRepository.getAllTeachers();
     }
 }

@@ -71,12 +71,21 @@ public class StudentController {
 
     @DeleteMapping("/delete-teacher-by-name")
     public ResponseEntity<String> deleteTeacherByName(@RequestParam String teacher){
-        studentService.deleteTeacherByName(teacher);
-        return new ResponseEntity<>(teacher + " removed successfully", HttpStatus.CREATED);
+        String s = studentService.deleteTeacherByName(teacher);
+        if(s.equals("success")){
+            return new ResponseEntity<>(teacher + " removed successfully", HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>(teacher + " Teacher doesn't exists!", HttpStatus.CREATED);
+        }
     }
     @DeleteMapping("/delete-all-teachers")
     public ResponseEntity<String> deleteAllTeachers(){
         studentService.deleteAllTeachers();
         return new ResponseEntity<>("All teachers deleted successfully", HttpStatus.CREATED);
+    }
+    @GetMapping("/get-all-teachers")
+    public List<String> getAllTeachers(){
+        return studentService.getAllTeachers();
     }
 }

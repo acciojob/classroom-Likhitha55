@@ -25,7 +25,10 @@ public class StudentRepository {
 
     }
     public void addStudentTeacherPair(String student,String teacher){
-        teacherStudentDB.put(teacher,new ArrayList<String>());
+        if(teacherStudentDB.get(teacher)==null){
+            ArrayList<String> list = new ArrayList<>();
+            teacherStudentDB.put(teacher,list);
+        }
         List<String> list = teacherStudentDB.get(teacher);
         list.add(student);
         teacherStudentDB.put(teacher,list);
@@ -34,6 +37,7 @@ public class StudentRepository {
     }
     public Student getStudentByName(String name){
         System.out.println(studentDB.get(name));
+        System.out.println(studentDB);
         return studentDB.get(name);
     }
     public Teacher getTeacherByName(String name){
@@ -59,13 +63,24 @@ public class StudentRepository {
         }
         return list;
     }
-    public void deleteTeacherByName(String name){
-        teacherDB.remove(name);
-        teacherStudentDB.remove(name);
+    public String deleteTeacherByName(String name){
+        if(teacherDB.containsKey(name)){
+            teacherDB.remove(name);
+            teacherStudentDB.remove(name);
+            return "success";
+        }
+        return "Failure";
     }
     public void deleteAllTeachers(){
         teacherDB.clear();
         teacherStudentDB.clear();
 
+    }
+    public List<String> getAllTeachers(){
+        List<String> list = new ArrayList<>();
+        for(String s :teacherDB.keySet()){
+            list.add(teacherDB.get(s).getName());
+        }
+        return list;
     }
 }
